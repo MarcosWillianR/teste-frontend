@@ -10,30 +10,35 @@ import {
 } from '../components/icons';
 
 interface IconProps {
-  filterName: string;
+  filterName: string | number;
 }
 
 const Icon: React.FC<IconProps> = ({ filterName }) => {
   let RenderedIcon;
 
   switch (filterName) {
-    case 'Em execução': {
+    case 'Em execução':
+    case 1: {
       RenderedIcon = <PaperPlane size={16} />;
       break;
     }
-    case 'Ativa': {
+    case 'Ativa':
+    case 2: {
       RenderedIcon = <PlayCircle size={16} />;
       break;
     }
-    case 'Configurando': {
+    case 'Configurando':
+    case 3: {
       RenderedIcon = <Pen size={16} />;
       break;
     }
-    case 'Ociosa': {
+    case 'Ociosa':
+    case 4: {
       RenderedIcon = <Bed size={16} />;
       break;
     }
-    case 'Concluída': {
+    case 'Concluída':
+    case 5: {
       RenderedIcon = <Check size={16} />;
       break;
     }

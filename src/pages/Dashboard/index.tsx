@@ -7,10 +7,11 @@ import { Button, InputSearch } from '../../components/Form';
 import ACMElogo from '../../assets/images/acme-logo.png';
 
 import { getInitialsName } from '../../helpers';
+import { getListItemStatusName } from '../../helpers/constants';
 
 import api from '../../services/apiClient';
 
-import Icon from '../../helpers/getIconByFilterName';
+import Icon from '../../helpers/getIconByFilterNameOrStatus';
 
 import {
   Container,
@@ -23,6 +24,8 @@ import {
   MainContentFilter,
   MainContentFilterList,
   MainContentFilterListItem,
+  MainList,
+  MainListItem,
 } from './styles';
 
 interface FiltersItem {
@@ -31,18 +34,39 @@ interface FiltersItem {
   quantity: number;
 }
 
+interface ListItem {
+  id: string;
+  name: string;
+  recipients: string;
+  status: number;
+  success: string;
+}
+
 const Dashboard: React.FC = () => {
   const [filterItems, setFilterItems] = useState<FiltersItem[]>([]);
   const [filteredItemActive, setFilteredItemActive] = useState(0);
+  const [list, setList] = useState<ListItem[]>([]);
 
   useEffect(() => {
     api.get('filter').then(response => {
       setFilterItems(response.data);
+
+      api.get('journey').then(listResponse => setList(listResponse.data));
     });
   }, []);
 
-  const handleGetFilteredContent = useCallback((itemId: number) => {
+  const handleGetFilteredContent = useCallback(async (itemId: number) => {
     setFilteredItemActive(itemId);
+
+    try {
+      const path = itemId === 0 ? 'journey' : `journey/${itemId}`;
+
+      const response = await api.get(path);
+
+      setList(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (
@@ -89,7 +113,27 @@ const Dashboard: React.FC = () => {
             </MainContentFilterList>
           </MainContentFilter>
 
-          {/* <MainList /> */}
+          <MainList>
+            <strong>Nome</strong>
+            <strong>Destinatários</strong>
+            <strong>Sucesso</strong>
+            <strong>Status</strong>
+
+            {list.length > 0 &&
+              list.map(item => {
+                return (
+                  <MainListItem key={item.id}>
+                    <span>{item.name}</span>
+                    <span>{item.recipients}</span>
+                    <span>{item.success}</span>
+                    <span className="status_text">
+                      <Icon filterName={item.status} />
+                      {getListItemStatusName(item.status)}
+                    </span>
+                  </MainListItem>
+                );
+              })}
+          </MainList>
         </MainContent>
       </MainContainer>
     </Container>

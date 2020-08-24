@@ -84,11 +84,14 @@ export const SearchContainer = styled.div`
 export const MainContent = styled.main`
   padding: 0 90px;
   margin-top: 60px;
+
+  display: flex;
 `;
 
 export const MainContentFilter = styled.div`
   width: 100%;
-  max-width: 150px;
+  width: 200px;
+  margin-right: 60px;
 
   h3 {
     font-size: ${FONT_SIZE_16};
@@ -143,5 +146,56 @@ export const MainContentFilterListItem = styled.li<MainContentListItemProps>`
     border: 0;
     background: 0;
     padding: 8px 0;
+  }
+`;
+
+export const MainList = styled.div`
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  max-width: 100%;
+  grid-gap: 22px;
+  max-height: 0;
+
+  strong {
+    font-weight: 400;
+    font-size: ${FONT_SIZE_13};
+    font-family: 'Gotham-Book', serif;
+    color: ${DARK_COLOR3};
+  }
+
+  div:first-of-type {
+    margin-top: 22px;
+  }
+`;
+
+export const MainListItem = styled.div`
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  align-content: center;
+  grid-gap: 22px;
+  max-height: 45px;
+
+  background: ${LIGHT_COLOR2};
+
+  padding: 22.5px 0;
+
+  span {
+    font-size: 13px;
+
+    &.status_text {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 8px;
+      }
+    }
+
+    &:first-of-type {
+      font-family: 'Gotham-Bold', serif;
+      color: ${DARK_COLOR2};
+    }
   }
 `;
