@@ -1,5 +1,18 @@
 import React from 'react';
 
-const App: React.FC = () => <h1>Hello World</h1>;
+import GlobalStyles from './styles/global';
+import GlobalFonts from './styles/fonts';
+
+import Dashboard from './pages/Dashboard';
+
+const App: React.FC = () => {
+  return (
+    <>
+      <GlobalStyles />
+      <GlobalFonts />
+      <Dashboard />
+    </>
+  );
+};
 
 export default App;
