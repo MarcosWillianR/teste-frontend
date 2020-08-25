@@ -21,7 +21,11 @@ const NewJourneyModal: React.FC<NewJourneyModalProps> = ({
   );
 
   return (
-    <Container isActive={active} onClick={toggleModal}>
+    <Container
+      isActive={active}
+      onClick={toggleModal}
+      data-testid="journey-modal-container"
+    >
       <ModalContent className="modal_content">
         <Title>Nova Jornada</Title>
 

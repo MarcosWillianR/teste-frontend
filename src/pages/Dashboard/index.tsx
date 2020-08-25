@@ -4,7 +4,7 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 
 import SideBar from '../../components/SideBar';
 import NewJourneyModal from '../../components/NewJourneyModal';
-import { Button, InputSearch } from '../../components/Form';
+import { Button, InputSearch } from '../../components/form';
 
 import ACMElogo from '../../assets/images/acme-logo.png';
 
@@ -57,25 +57,22 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     api.get('filter').then(response => {
       setFilterItems(response.data);
-
-      api.get('journey').then(listResponse => setList(listResponse.data));
     });
+
+    api.get('journey').then(listResponse => setList(listResponse.data));
   }, []);
 
   const handleGetFilteredContent = useCallback(async (itemId: number) => {
     setFilteredItemActive(itemId);
 
-    try {
-      setIsListLoading(true);
-      const path = itemId === 0 ? 'journey' : `journey/${itemId}`;
+    setIsListLoading(true);
+    const path = itemId === 0 ? 'journey' : `journey/${itemId}`;
 
-      const response = await api.get(path);
+    const response = await api.get(path);
 
-      setList(response.data);
-      setIsListLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
+    setList(response.data);
+
+    setIsListLoading(false);
   }, []);
 
   const handleToggleNewJourneyModal = useCallback(() => {
@@ -97,7 +94,11 @@ const Dashboard: React.FC = () => {
 
             <SearchContainer>
               <InputSearch />
-              <Button onClick={handleToggleNewJourneyModal} icon={FiPlus}>
+              <Button
+                data-testid="journey-modal-button"
+                onClick={handleToggleNewJourneyModal}
+                icon={FiPlus}
+              >
                 Nova Jornada
               </Button>
             </SearchContainer>
@@ -107,7 +108,7 @@ const Dashboard: React.FC = () => {
             <MainContentFilter>
               <h3>Jornadas</h3>
 
-              <MainContentFilterList>
+              <MainContentFilterList data-testid="filter-items">
                 {filterItems.length > 0 ? (
                   filterItems.map(item => {
                     return (
@@ -154,8 +155,8 @@ const Dashboard: React.FC = () => {
                 })
               ) : (
                 <>
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
-                    <Loading count={1} height={35} />
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map(key => (
+                    <Loading key={key} count={1} height={35} />
                   ))}
                 </>
               )}
