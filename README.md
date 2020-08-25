@@ -30,7 +30,8 @@
 <p align="center">
  <a href="#-tecnologias">Tecnologias</a> •
  <a href="#-autor">Autor</a> •
- <a href="#user-content--licença">Licença</a>
+ <a href="#user-content--licença">Licença</a> •
+ <a href="https://objective-mestorf-954751.netlify.app/">Acessar o projeto pelo Netlify</a>
 </p>
 
 ### Web
