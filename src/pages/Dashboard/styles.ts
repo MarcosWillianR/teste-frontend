@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import Skeleton from 'react-loading-skeleton';
+
 import {
   LIGHT_COLOR1,
   LIGHT_COLOR2,
@@ -17,6 +19,10 @@ interface AvatarImageProps {
 interface MainContentListItemProps {
   active: boolean;
 }
+
+export const Loading = styled(Skeleton)`
+  margin-bottom: 4px;
+`;
 
 export const Container = styled.main`
   width: 100%;

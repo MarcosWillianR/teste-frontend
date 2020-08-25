@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { FiPlus } from 'react-icons/fi';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 import SideBar from '../../components/SideBar';
 import NewJourneyModal from '../../components/NewJourneyModal';
@@ -27,6 +28,7 @@ import {
   MainContentFilterListItem,
   MainList,
   MainListItem,
+  Loading,
 } from './styles';
 
 interface FiltersItem {
@@ -45,8 +47,11 @@ interface ListItem {
 
 const Dashboard: React.FC = () => {
   const [filterItems, setFilterItems] = useState<FiltersItem[]>([]);
+
   const [filteredItemActive, setFilteredItemActive] = useState(0);
+
   const [list, setList] = useState<ListItem[]>([]);
+  const [isListLoading, setIsListLoading] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
@@ -61,11 +66,13 @@ const Dashboard: React.FC = () => {
     setFilteredItemActive(itemId);
 
     try {
+      setIsListLoading(true);
       const path = itemId === 0 ? 'journey' : `journey/${itemId}`;
 
       const response = await api.get(path);
 
       setList(response.data);
+      setIsListLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -76,7 +83,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <SkeletonTheme color="#117eff" highlightColor="#00e1ff">
       <Container>
         <SideBar />
 
@@ -101,7 +108,7 @@ const Dashboard: React.FC = () => {
               <h3>Jornadas</h3>
 
               <MainContentFilterList>
-                {filterItems.length > 0 &&
+                {filterItems.length > 0 ? (
                   filterItems.map(item => {
                     return (
                       <MainContentFilterListItem
@@ -118,7 +125,10 @@ const Dashboard: React.FC = () => {
                         <span>{item.quantity}</span>
                       </MainContentFilterListItem>
                     );
-                  })}
+                  })
+                ) : (
+                  <Loading count={6} height={24} />
+                )}
               </MainContentFilterList>
             </MainContentFilter>
 
@@ -128,7 +138,7 @@ const Dashboard: React.FC = () => {
               <strong>Sucesso</strong>
               <strong>Status</strong>
 
-              {list.length > 0 &&
+              {!isListLoading && list.length > 0 ? (
                 list.map(item => {
                   return (
                     <MainListItem key={item.id}>
@@ -141,7 +151,14 @@ const Dashboard: React.FC = () => {
                       </span>
                     </MainListItem>
                   );
-                })}
+                })
+              ) : (
+                <>
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
+                    <Loading count={1} height={35} />
+                  ))}
+                </>
+              )}
             </MainList>
           </MainContent>
         </MainContainer>
@@ -151,7 +168,7 @@ const Dashboard: React.FC = () => {
         active={isModalActive}
         handleToggleModal={handleToggleNewJourneyModal}
       />
-    </>
+    </SkeletonTheme>
   );
 };
 
