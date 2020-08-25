@@ -20,7 +20,7 @@
 </p>
 
 <h1 align="center">
-    <img alt="D1 - Better Journeys" title="#D1" src="src/assets/images/logotipo.png" />
+    <img alt="D1 - Better Journeys" title="#D1" src="src/assets/images/logotipo.png" width="250" height="150" />
 </h1>
 
 <h4 align="center">
