@@ -65,9 +65,12 @@ $ npm start ou yarn start
 
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3000
 
-```
+# Para rodar os testes sem coverage
+$ npm run test ou yarn run test
 
----
+# Para rodar os testes com coverage
+$npm run test:coverage ou yarn run test:coverage
+```
 
 ## 🛠 Tecnologias
 
