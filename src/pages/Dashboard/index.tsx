@@ -30,6 +30,7 @@ import {
   MainListItem,
   Loading,
 } from './styles';
+import { Plus } from '../../components/icons';
 
 interface FiltersItem {
   id: number;
@@ -97,8 +98,8 @@ const Dashboard: React.FC = () => {
               <Button
                 data-testid="journey-modal-button"
                 onClick={handleToggleNewJourneyModal}
-                icon={FiPlus}
               >
+                <Plus size={20} color="#fff" />
                 Nova Jornada
               </Button>
             </SearchContainer>

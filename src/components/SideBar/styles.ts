@@ -76,19 +76,23 @@ export const Container = styled.aside`
 
 export const SidebarButton = styled.button<SidebarButtonProps>`
   width: 100%;
-  background: 0;
   border: 0;
+  background: 0;
   margin-bottom: 16px;
   padding: 8px 0;
 
   svg {
-    transition: color 0.5s;
-    color: ${props => (props.active ? MAIN_COLOR : LIGHT_COLOR1)};
+    g {
+      transition: fill 0.5s;
+      fill: ${props => (props.active ? MAIN_COLOR : LIGHT_COLOR1)};
+    }
   }
 
   &:hover {
     svg {
-      color: ${MAIN_COLOR};
+      g {
+        fill: ${MAIN_COLOR};
+      }
     }
   }
 `;
